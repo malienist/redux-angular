@@ -1,0 +1,28 @@
+<div *ngIf="(cartProducts | async)?.length != 0">
+    <h2>Cart Products <button *ngIf="(cartProducts | async).length > 1" (click)="clearCart()">clear cart</button></h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Category</th>
+                <th>Quantity</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let p of cartProducts | async">
+                <td><span>{{ p.id }}</span></td>
+                <td><span>{{ p.name }}</span></td>
+                <td><span>{{ p.price }}</span></td>
+                <td><span>{{ p.category }}</span></td>
+                <td>
+                    <span><button (click)="decrement(p)">-</button> {{ p.quantity === undefined ? 1 : p.quantity }} <button (click)="increment(p)">+</button></span>
+                </td>
+                <td><button (click)="removeFromCart(p)">remove from cart</button></td>
+            </tr>
+        </tbody>
+    </table>
+    <h3>Total Amount: {{ cartAmount | async }}</h3>
+</div>
